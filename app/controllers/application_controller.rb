@@ -2,10 +2,19 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Add your routes here
-  get "/" do
-    { message: "Good luck with your project, Big Jim!" }.to_json
-  end
+  get "/pets" do
+    # pets = Pet.all.includes(:comments)
+    # pets_comments = pets.map do |pet|
+    #   pet.attributes.merge(
+    #     'comments' => pet.comments
+    #   )
+    # end
+    # pets_comments.to_json
+    pets = Pet.all
+    pets.to_json(include: :comments)
 
+  end
+  
   get '/dogs' do
     dogs = Pet.where(species: "dog") 
     dogs.to_json
@@ -21,30 +30,22 @@ class ApplicationController < Sinatra::Base
     comments.to_json
   end
 
+  get '/pets/:id' do
+    show = Pet.find(params[:id])
+    show.to_json(include: :comments)
+  end
 
-  post '/dogs' do
-    dog = Pet.create(
+  post '/pets' do
+    pet = Pet.create(
       image: params[:image],
       name: params[:name],
       species: params[:species],
       breed: params[:breed],
       age: params[:age]
     )
-    dog.to_json
+    pet.to_json
   end
-
-  post '/cats' do
-    cat = Pet.create(
-      image: params[:image],
-      name: params[:name],
-      species: params[:species],
-      breed: params[:breed],
-      age: params[:age]
-    )
-    cat.to_json
-  end
-
-  
+ 
   post '/comments' do
     comment = Comment.create(
       comment: params[:comment],
@@ -55,8 +56,8 @@ class ApplicationController < Sinatra::Base
 
   delete '/comments/:id' do
     comment = Comment.find(params[:id])
-    review.destroy
-    review.to_json
+    comment.destroy
+    comment.to_json
   end
 
   delete '/dogs/:id' do

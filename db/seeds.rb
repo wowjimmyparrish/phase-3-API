@@ -17,6 +17,20 @@ Pet.create({
   age: 8
 })
 
+Pet.create({
+  name: "Sam",
+  species: "cat",
+  breed: "tabby",
+  age: 9
+})
+
+Pet.create({
+  name: "Meatloaf",
+  species: "cat",
+  breed: "calico",
+  age: 4
+})
+
 Comment.create({
   comment: Faker::Lorem.sentence,
   pet_id: 1
@@ -27,5 +41,14 @@ Comment.create({
   pet_id: 2
 })
 
+Comment.create({
+  comment: Faker::Lorem.sentence,
+  pet_id: 3
+})
+
+Comment.create({
+  comment: Faker::Lorem.sentence,
+  pet_id: 4
+})
 
 puts "✅ Done seeding!"
