@@ -3,13 +3,6 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here
   get "/pets" do
-    # pets = Pet.all.includes(:comments)
-    # pets_comments = pets.map do |pet|
-    #   pet.attributes.merge(
-    #     'comments' => pet.comments
-    #   )
-    # end
-    # pets_comments.to_json
     pets = Pet.all
     pets.to_json(include: :comments)
 
@@ -60,6 +53,12 @@ class ApplicationController < Sinatra::Base
     comment.to_json
   end
 
+  delete '/pets/:id' do
+    pet = Pet.find(params[:id])
+    pet.destroy
+    pet.to_json
+  end
+
   delete '/dogs/:id' do
     dog = Pet.find(params[:id])
     dog.destroy
@@ -76,7 +75,7 @@ class ApplicationController < Sinatra::Base
     comment = Comment.find(params[:id])
     comment.update(
       comment: params[:comment]
-    )
+      )
     comment.to_json
   end
 
