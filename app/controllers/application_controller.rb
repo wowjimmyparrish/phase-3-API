@@ -36,7 +36,7 @@ class ApplicationController < Sinatra::Base
       breed: params[:breed],
       age: params[:age]
     )
-    pet.to_json
+    pet.to_json(include: :comments)
   end
  
   post '/comments' do
