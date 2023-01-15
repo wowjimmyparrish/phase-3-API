@@ -1,8 +1,8 @@
-# Pettown Backend
+# PetTown Backend
 
 ## Description
 
-This is the backend for the Pettown app.  In here you will find the models and controllers for the frontend.
+This is the backend for the PetTown app.  In here you will find the models and controllers for the frontend.
 
 ## Installation Instructions
 
